@@ -82,7 +82,7 @@ Once the honeypot was live, I began reviewing incoming activity through the dash
 
 Step-by-Step Lab Notes
 
-This section is written to reflect the setup flow I followed as closely as possible based on my own actions and the referenced tutorial. (Tutorial I Followed)[https://www.youtube.com/watch?v=KKu8CnTkcY0].
+This section is written to reflect the setup flow I followed as closely as possible based on my own actions and the referenced tutorial. [Tutorial I Followed](https://www.youtube.com/watch?v=KKu8CnTkcY0).
 
 ---
 
