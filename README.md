@@ -182,5 +182,8 @@ I will continue building on this project, possible next steps include:
 ## Relevant Images
 <img width="1911" height="887" alt="SS3(Honeypot)" src="https://github.com/user-attachments/assets/3a908025-8a82-48fd-97ca-50fbdff75cb1" />
 The image above showcases my "Attack Map" with various different attacks from all over the world.  
+
+---
+
 <img width="1902" height="827" alt="SS4(Honeypot)" src="https://github.com/user-attachments/assets/17400c8d-8fc3-421e-8fca-29b24db04c86" />
 The image above showcases my "Kibana" discover dashboard. Here, I've added the fields 'username' 'password' 'message' 'src_ip'. Interestingly, with SSH brute force attacks, you are actually able to see what the user tried to input for username and password. As shown in this image, you can see 'validator' 'validator'. In my experience, I saw 'admin123' and '1234567890','ubuntu' and'ubuntu' the most. 
