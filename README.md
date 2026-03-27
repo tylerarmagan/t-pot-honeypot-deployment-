@@ -82,7 +82,7 @@ Once the honeypot was live, I began reviewing incoming activity through the dash
 
 Step-by-Step Lab Notes
 
-This section is written to reflect the setup flow I followed as closely as possible based on my own actions and the referenced tutorial. [Tutorial I Followed](https://www.youtube.com/watch?v=KKu8CnTkcY0).
+This section is written to reflect the setup flow I followed as closely as possible based on my own actions and the referenced tutorial: [Tutorial I Followed](https://www.youtube.com/watch?v=KKu8CnTkcY0).
 
 ---
 
@@ -176,8 +176,7 @@ I will continue building on this project, possible next steps include:
 - documenting repeated IPs, ports, usernames, and attack patterns
 - comparing attack volume across time periods
 - adding firewall controls and documenting their effect
-- performing deeper Kibana analysis and creating custom visualizations
-- studying which T-Pot components generated which logs
+- performing deeper Kibana analysis
 
 ## Relevant Images
 <img width="1911" height="887" alt="SS3(Honeypot)" src="https://github.com/user-attachments/assets/3a908025-8a82-48fd-97ca-50fbdff75cb1" />
