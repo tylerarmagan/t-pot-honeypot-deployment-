@@ -170,7 +170,7 @@ The Attack Map made the overall activity easy to recognize, while Kibana provide
 
 I followed the installation tutorial closely and did not fully understand every setup step while performing it. My understanding improved significantly once the system was running and I could connect the configuration to the telemetry in T-Pot and Kibana.
 
-This was one of the most exciting labs I had completed at the time. Seeing real systems interact with the honeypot transformed an abstract security concept into something I could deploy, monitor, and investigate myself. That initial reaction motivated me to spend more time exploring the collected events and understanding what they represented.
+This was one of the most exciting labs I have completed. Seeing real systems interact with the honeypot transformed an abstract security concept into something I could deploy, monitor, and investigate myself. That initial reaction motivated me to spend more time exploring the collected events and understanding what they represented.
 
 My immediate reaction was: *"I think this is insanely awesome. The fact that real machines are trying to attack me, and it's not a little amount of them either."* That excitement is what made the project stand out and encouraged me to explore the data more deeply.
 
