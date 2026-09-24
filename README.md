@@ -1,105 +1,108 @@
 # T-Pot Honeypot Deployment and Attack Monitoring
 
-## Overview
+Cloud-hosted honeypot lab built with T-Pot and DigitalOcean to observe unsolicited internet traffic, investigate attack activity, and develop hands-on experience with Kibana-based security telemetry.
 
-This project focused on deploying a *T-Pot* honeypot in a cloud-hosted *DigitalOcean* droplet and monitoring real-world attack activity against it. The goal was to gain hands-on experience with honeypot technology, understand how internet-exposed systems attract traffic, and observe attacker behavior through the T-Pot dashboard and Kibana.
+## Project Overview
 
-I had been interested in honeypots for a while because I wanted to see how they actually worked in practice. This project gave me a way to move beyond theory and interact with real attack telemetry in a controlled environment.
+I deployed a publicly reachable T-Pot honeypot on a DigitalOcean droplet and administered it remotely through SSH from PowerShell. Once the system was online, I used T-Pot's Attack Map and Kibana dashboards to monitor connection attempts, review brute-force activity, and identify the services being targeted.
 
----
+I had been interested in honeypots for a while and wanted to understand how they worked beyond theory. This project gave me direct experience deploying a controlled environment, observing real internet traffic, and interpreting the resulting security data.
 
-## Objective
+## Objectives
 
-The main objective of this lab was to:
-- Deploy a publicly reachable T-Pot honeypot in the cloud
-- Access and manage it remotely using SSH from PowerShell
-- Monitor attack activity through the T-Pot web interface
-- Review events in Kibana to identify brute-force attempts and targeted services
-- Build foundational experience in threat monitoring and honeypot analysis
+- Deploy a publicly reachable T-Pot honeypot in a cloud environment.
+- Administer the server remotely through SSH and PowerShell.
+- Monitor incoming activity through the T-Pot web interface.
+- Use Kibana to investigate brute-force attempts and targeted services.
+- Build foundational experience with honeypots, attack telemetry, and event analysis.
 
----
+## Lab Environment
 
-## Environment
-
-Platform: DigitalOcean
-
-Instance Type: 4 vCPUs, 8 GB memory, 50 GB SSD
-
-Deployment Type: Cloud-hosted droplet
-
-Management Method: SSH from local machine using PowerShell
-
-Honeypot Platform: T-Pot
-
----
+| Component | Configuration |
+|---|---|
+| Cloud provider | DigitalOcean |
+| Instance | 4 vCPUs, 8 GB memory, 50 GB SSD |
+| Deployment | Internet-facing cloud droplet |
+| Administration | PowerShell and SSH |
+| Honeypot platform | T-Pot |
+| Analysis tools | T-Pot Attack Map and Kibana |
 
 ## What T-Pot Is
 
-T-Pot is an all-in-one honeypot platform that combines multiple honeypot services with monitoring and visualization tools. It is designed to collect attack activity from internet-exposed services and present that data through dashboards and analytics tools.
+T-Pot is an all-in-one honeypot platform that combines multiple honeypot services with monitoring and visualization tools. It collects activity directed at exposed services and makes the resulting telemetry available through dashboards and analysis interfaces.
 
-## Project Workflow
+## Architecture
 
-1. Provisioned the cloud environment
+```mermaid
+flowchart LR
+    A["Internet traffic"] --> B["T-Pot on DigitalOcean"]
+    B --> C["Attack Map"]
+    B --> D["Kibana"]
+    E["Local workstation"] -->|"PowerShell and SSH"| B
+```
 
-I first created a DigitalOcean droplet to host the honeypot. This allowed the system to be internet-facing and capable of receiving unsolicited traffic from external hosts.
+## Deployment Workflow
 
-2. Connected remotely from my local machine
+### 1. Provisioned the cloud environment
 
-I used PowerShell on my local computer to connect to the droplet over SSH. My PowerShell usage in this lab was primarily focused on remote administration and installation.
+I created a DigitalOcean droplet to host T-Pot. Making the system internet-facing allowed it to receive unsolicited scanning and connection attempts from external hosts.
 
-3. Installed T-Pot from the GitHub repository
+### 2. Connected through SSH
 
-Using SSH commands from PowerShell, I installed T-Pot from its GitHub-hosted files. Public installation references for T-Pot describe a setup flow that includes installing Git, cloning the T-Pot repository, running the installer script, and rebooting the system once installation is complete.
+I used PowerShell on my local computer to connect to the droplet over SSH. PowerShell primarily served as my interface for remote administration and installation during this lab.
 
-4. Created a user account manually
+### 3. Installed T-Pot
 
-As part of the setup process, I manually created a user named 'shane' for access and management.
+From the SSH session, I installed T-Pot using its GitHub-hosted installation files. The setup process included installing Git, cloning the T-Pot repository, running the installer, and rebooting the server after installation.
 
-5. Reconnected using the new SSH port
+I followed this reference during the deployment: [T-Pot deployment tutorial](https://www.youtube.com/watch?v=KKu8CnTkcY0).
 
-After installation, T-Pot automatically changed the SSH port from the standard port 22 to 64295. References discussing T-Pot do confirm that this port change is part of the normal deployment behavior. I accessed the system using:
+### 4. Created the management account
 
+As part of the setup process, I manually created a user named `shane` for access and management.
+
+### 5. Reconnected on T-Pot's SSH port
+
+Following installation, the SSH service moved from port 22 to port 64295. I reconnected using:
+
+```bash
 ssh -p 64295 <public-ip>
+```
 
-This matched the post-installation behavior I observed in my lab.
+### 6. Accessed the T-Pot dashboard
 
-6. Accessed the web dashboard
+After installation completed, I opened the web interface at:
 
-After T-Pot finished installing, I accessed the dashboard through:
-
+```text
 https://<public-ip>:64297
+```
 
-This gave me access to the T-Pot interface containing tools such as the: 
+The interface provided access to tools including:
+
 - Attack Map
 - CyberChef
 - Elasticvue
 - Kibana
-- Spiderfoot
+- SpiderFoot
 
-7. Monitored live attack data
+### 7. Monitored live activity
 
-Once the honeypot was live, I began reviewing incoming activity through the dashboard. I first used the attack map for a high-level view, then moved into Kibana to inspect attack attempts in more detail.
+I first used the Attack Map for a high-level view of incoming traffic, then moved into Kibana to inspect individual events, attempted credentials, source IP addresses, messages, and targeted services in greater detail.
 
-Step-by-Step Lab Notes
+## Observations
 
-This section is written to reflect the setup flow I followed as closely as possible based on my own actions and the referenced tutorial: [Tutorial I Followed](https://www.youtube.com/watch?v=KKu8CnTkcY0).
-
----
-
-## What I Observed
-
-I didn't exactly know what I was looking at at first, but within about 20 minutes, the honeypot was already receiving a noticeable amount of activity. I observed traffic from multiple countries, including:
+The honeypot began receiving noticeable activity within approximately 20 minutes. Source IP geolocation data displayed traffic associated with several countries, including:
 
 - United States
 - Romania
 - United Kingdom
 - France
 
-My first impression overall impression was excitement as I couldn't believe I was seeing real attacks. I also noticed that a large portion of this traffic appeared to be automated bot activity, especially because in Kibana some of the username and password fields appeared as null. I would only see brute-force attempts in a SSH attack. 
+Much of the traffic appeared automated. This was consistent with broad scanning and repeated login attempts rather than a single targeted attacker. Some Kibana events contained null username or password values, while SSH brute-force events exposed the attempted credential pairs.
 
-I returned the next day after letting the honeypot continue overnight, and I was able to observe more attack types and review them in more depth through Kibana.
+After leaving the honeypot online overnight, I returned the next day and observed a wider variety of activity that I could investigate in Kibana.
 
-## Attack activity observed
+### Services and activity observed
 
 - SSH brute-force attempts
 - SMB-related activity
@@ -109,80 +112,77 @@ I returned the next day after letting the honeypot continue overnight, and I was
 - RPC activity
 - HTTP activity
 
-This, to me, was one of the most interesting parts of the lab because it showed how quickly publicly exposed infrastructure begins attracting opportunistic scans and automated attack attempts.
-
----
+The speed and variety of the activity demonstrated how quickly publicly exposed infrastructure attracts opportunistic scans and automated attacks.
 
 ## Analysis Experience
 
-The most valuable part of this project was not just installing the honeypot, but learning how to interpret what I was seeing once the data started coming in.
-At first, I did not fully understand everything happening during setup. I only began understanding the environment better once the deployment was complete and I could start reviewing the attack telemetry myself.
+The most valuable part of this project was learning how to interpret the collected telemetry after the deployment was running. I began with the high-level Attack Map and then used Kibana fields such as `username`, `password`, `message`, and `src_ip` to investigate individual events.
 
----
+In SSH brute-force data, I observed attempted username and password combinations such as `validator` / `validator`. The combinations `admin123` / `1234567890` and `ubuntu` / `ubuntu` also appeared frequently during my observation period.
 
-## Key Skills Demonstrated
+At the start of the project, I did not understand every installation step in depth. Working with the live environment afterward helped me connect the deployment process to the services, events, and dashboards I was analyzing.
 
-- Honeypot deployment
-- Cloud-hosted environment cybersecurity lab setup
-- Remote administration with SSH
-- Internet exposure and unsolicited attack traffic
-- Attack surface monitoring
-- SSH brute-force observation
-- Threat telemetry review in Kibana
-- Basic event analysis and service targeting awareness
+## Evidence
 
----
+### Global attack activity
 
-## What I Learned
+<img width="1911" height="887" alt="T-Pot Attack Map showing global source activity" src="https://github.com/user-attachments/assets/3a908025-8a82-48fd-97ca-50fbdff75cb1" />
 
-This project taught me several important lessons:
+The T-Pot Attack Map provided a high-level visualization of incoming activity and the geographic locations associated with observed source IP addresses.
 
-1. Internet-exposed systems receive traffic very quickly
+### Kibana event analysis
 
-One of my biggest takeaways was how fast attack traffic appeared. The honeypot did not need to be online for long before it began receiving connection attempts.
+<img width="1902" height="827" alt="Kibana Discover dashboard displaying T-Pot event fields" src="https://github.com/user-attachments/assets/17400c8d-8fc3-421e-8fca-29b24db04c86" />
 
-2. Much of the activity is automated
+In Kibana Discover, I added the `username`, `password`, `message`, and `src_ip` fields to make SSH brute-force activity easier to review. The screenshot shows an attempted `validator` / `validator` credential pair.
 
-A large amount of the traffic appeared to come from bots performing broad scanning and automated login attempts rather than targeted, manual attackers.
+## Skills Demonstrated
 
-3. Attackers probe many services, not just SSH
+- T-Pot honeypot deployment
+- DigitalOcean cloud infrastructure
+- Linux server administration
+- PowerShell and SSH remote access
+- Attack-surface monitoring
+- Kibana event investigation
+- SSH brute-force analysis
+- Network-service targeting awareness
+- Security telemetry interpretation
 
-Before this lab, I mainly associated internet-facing attacks with SSH brute force. After reviewing the data, I saw activity across several protocols and services, including SMB, Telnet, MySQL, HTTP, RPC, and SQL-related traffic.
+## Key Takeaways
 
-4. Visualization tools make security data easier to interpret
+### Internet-facing systems attract traffic quickly
 
-The T-Pot dashboard and Kibana made it much easier to move from “something is happening” to “I can identify what services are being targeted and how.”
+The honeypot began receiving connection attempts shortly after deployment, showing how rapidly automated scanners discover exposed infrastructure.
 
-## Challenges
+### Much of the activity is automated
 
-This project was successful, but one honest takeaway is that I did not fully understand every installation step while I was doing it. I followed the tutorial exactly and gained the most understanding after the system was already running and I could analyze the collected data.
+Repeated patterns and broad service probing suggested that a significant portion of the observed traffic came from bots conducting automated scans and login attempts.
 
-That said, this was still valuable because it reflects a real learning process.
+### Attackers probe more than SSH
 
----
+Before this lab, I primarily associated attacks against internet-facing systems with SSH brute force. The honeypot also recorded activity involving SMB, Telnet, MySQL, HTTP, RPC, and SQL-related services.
 
-## Personal Reflection
+### Visualization supports investigation
 
-This was one of the most exciting labs I have done so far. My immediate reaction after seeing real attack traffic was:
-I think this is insanely awesome. The fact that real machines are trying to attack me and it’s not a little amount of them either. That reaction and initial excitement is what made this project stand out to me. It turned a concept I had only heard about into something I could actually deploy, monitor, and learn from in real time.
+The Attack Map made the overall activity easy to recognize, while Kibana provided the event-level detail needed to understand which services and credential combinations were being tested.
 
---- 
+## Challenges and Reflection
+
+I followed the installation tutorial closely and did not fully understand every setup step while performing it. My understanding improved significantly once the system was running and I could connect the configuration to the telemetry in T-Pot and Kibana.
+
+This was one of the most exciting labs I had completed at the time. Seeing real systems interact with the honeypot transformed an abstract security concept into something I could deploy, monitor, and investigate myself. That initial reaction motivated me to spend more time exploring the collected events and understanding what they represented.
+
+My immediate reaction was: *"I think this is insanely awesome. The fact that real machines are trying to attack me, and it's not a little amount of them either."* That excitement is what made the project stand out and encouraged me to explore the data more deeply.
 
 ## Future Improvements
 
-I will continue building on this project, possible next steps include:
+- Run the honeypot longer to collect a larger dataset.
+- Explore storing and organizing additional data through Elasticvue.
+- Document recurring source IPs, ports, usernames, and attack patterns.
+- Compare attack volume across different time periods.
+- Add firewall controls and measure how they affect observed activity.
+- Perform deeper Kibana analysis across individual honeypot services.
 
-- running the honeypot longer to collect more data and possibly creating a database in *Elasticvue*
-- documenting repeated IPs, ports, usernames, and attack patterns
-- comparing attack volume across time periods
-- adding firewall controls and documenting their effect
-- performing deeper Kibana analysis
+## Responsible Use
 
-## Relevant Images
-<img width="1911" height="887" alt="SS3(Honeypot)" src="https://github.com/user-attachments/assets/3a908025-8a82-48fd-97ca-50fbdff75cb1" />
-The image above showcases my "Attack Map" with various different attacks from all over the world.  
-
----
-
-<img width="1902" height="827" alt="SS4(Honeypot)" src="https://github.com/user-attachments/assets/17400c8d-8fc3-421e-8fca-29b24db04c86" />
-The image above showcases my "Kibana" discover dashboard. Here, I've added the fields 'username' 'password' 'message' 'src_ip'. Interestingly, with SSH brute force attacks, you are actually able to see what the user tried to input for username and password. As shown in this image, you can see 'validator' 'validator'. In my experience, I saw 'admin123' and '1234567890', and 'ubuntu' and 'ubuntu' the most. 
+This repository documents a defensive cybersecurity lab deployed on infrastructure I controlled. Honeypots should be isolated, monitored, and operated in accordance with the cloud provider's terms and applicable authorization requirements.
