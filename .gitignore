@@ -1,0 +1,56 @@
+# Environment variables and local configuration
+.env
+.env.*
+!.env.example
+*.local
+config.local.*
+secrets.*
+
+# Credentials, tokens, and SSH material
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+authorized_keys
+known_hosts
+credentials*
+token*
+
+# T-Pot, Elastic, and captured telemetry
+data/
+logs/
+exports/
+elasticsearch/
+logstash/
+*.log
+*.ndjson
+*.pcap
+*.pcapng
+*.evtx
+
+# Archives and backups
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.bak
+*.backup
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
